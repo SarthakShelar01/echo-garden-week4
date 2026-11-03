@@ -1,0 +1,16 @@
+const {test}=require('node:test');const assert=require('node:assert/strict');const {Game,LEVELS}=require('../core.js');
+const cmds=(g,a)=>a.forEach(c=>g.step(c));
+const record=(g,a)=>{g.record();cmds(g,a);g.record();};
+const A=g=>{record(g,['right','right','up','up']);cmds(g,[...Array(4).fill('right'),'up','right','right','down','right']);g.interact();};
+const B=g=>{record(g,['right','right',...Array(5).fill('up')]);cmds(g,[...Array(4).fill('up'),...Array(6).fill('right'),'down']);g.interact();};
+const C=g=>{record(g,['up','up','up']);cmds(g,['right','up','up','right','right','right','up']);g.interact();};
+function reachable(g,start,open){const queue=[start],seen=new Set();while(queue.length){const p=queue.shift(),k=p.x+','+p.y;if(seen.has(k))continue;seen.add(k);for(const c of ['up','right','down','left']){const n=g.move(p,c,open);if(!seen.has(n.x+','+n.y))queue.push(n);}}return seen;}
+test('large map is rectangular with one start, two pumps and three linked switches',()=>{const m=LEVELS[3].map;assert.equal(m.length,11);assert.ok(m.every(r=>r.length===21));for(const k of 'PABTabc123')assert.equal(m.join('').split(k).length-1,1);});
+test('full three-stage walkthrough finishes in 27 replay turns',()=>{const g=new Game(3);A(g);assert.equal(g.activated.A,true);assert.equal(g.turns,9);assert.equal(g.stage(),2);B(g);assert.equal(g.activated.B,true);assert.equal(g.turns,20);assert.equal(g.stage(),3);C(g);assert.equal(g.complete,true);assert.equal(g.turns,27);assert.equal(g.score(),730);});
+test('restoring pump A removes old Echo, latches gate and saves checkpoint',()=>{const g=new Game(3);A(g);assert.equal(g.echo,null);assert.equal(g.commands.length,0);assert.equal(g.mode,'planning');assert.equal(g.gateOpen('1'),true);assert.deepEqual(g.checkpoint.player,{x:9,y:8});});
+test('failed attempt restores checkpoint without losing first pump',()=>{const g=new Game(3);A(g);record(g,['right']);g.step('down');g.reset();assert.deepEqual(g.player,{x:9,y:8});assert.equal(g.activated.A,true);assert.equal(g.activated.B,undefined);assert.equal(g.turns,9);assert.equal(g.resets,1);assert.equal(g.mode,'planning');});
+test('whole-level restart clears both pumps and checkpoint',()=>{const g=new Game(3);A(g);B(g);g.restart();assert.equal(g.checkpoint,null);assert.equal(Object.keys(g.activated).length,0);assert.deepEqual(g.player,{x:2,y:8});assert.equal(g.turns,0);});
+test('future gate cannot open before its upstream pump',()=>{const g=new Game(3);g.echo=g.find('b');assert.equal(g.gateOpen('2'),false);g.echo=g.find('c');assert.equal(g.gateOpen('3'),false);});
+test('closed gates prevent walking around the intended bottlenecks',()=>{const g=new Game(3);let seen=reachable(g,g.player,{G:false,1:false,2:false,3:false});assert.ok(!seen.has('9,8'));seen=reachable(g,{x:9,y:8},{G:false,1:true,2:false,3:false});assert.ok(!seen.has('15,5'));seen=reachable(g,{x:15,y:5},{G:false,1:true,2:true,3:false});assert.ok(!seen.has('19,2'));});
+test('terminal refuses completion if pumps were not restored',()=>{const g=new Game(3);g.player=g.find('T');assert.equal(g.interact(),false);assert.equal(g.complete,false);});
+test('optional signs supply story without advancing turns',()=>{const g=new Game(3);g.player={x:2,y:6};assert.equal(g.interact(),false);assert.match(g.note,/Moss/);assert.equal(g.turns,0);});

@@ -1,0 +1,9 @@
+This submission presents the Week 4 level design and environmental setup for Echo Garden. The updated project adds The Rooftop Reservoir, a connected 21-by-11-tile level that develops the recording and Echo mechanics introduced in the earlier prototype.
+
+The level contains three sequential areas: an intake yard, a pump terrace, and a reservoir approach. Each area requires the player to record a route for the Echo, use a pressure plate to open a linked gate, and follow a separate route toward the next objective. Two intermediate pumps permanently open their upstream gates and create session checkpoints. This allows players to retry the current stage without repeating completed areas.
+
+The environment uses stone dividers, garden paving, dry and restored planters, numbered switches, gates, and water terminals. Optional signs provide short narrative explanations of the irrigation system. Floor and planter states change as pumps are restored, connecting environmental storytelling to gameplay progress. Existing character animation, sound effects, and optional background music remain integrated.
+
+The accompanying documentation includes an annotated coordinate map, interactive-object locations, stage walkthroughs, checkpoint rules, environmental art, and a level-design report. The documented route uses recordings of four, seven, and three commands and completes the level in 27 replay turns without resets.
+
+All 31 automated tests passed, covering gameplay, the new level walkthrough, checkpoint recovery, progression requirements, gate bottlenecks, and interface integration. Structural checks also validated the 26 runtime assets. These checks establish solvability and implementation behavior; real-browser visual review and human difficulty testing remain manual review steps. The repository package includes the playable project, source files, assets, test results, and a proposed playtesting plan.

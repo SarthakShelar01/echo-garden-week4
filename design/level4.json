@@ -1,0 +1,20 @@
+{
+  "name": "The rooftop reservoir",
+  "subtitle": "Restore two pumps, then bring the rooftop back to life.",
+  "echo": true,
+  "checkpointed": true,
+  "map": [
+    "#####################",
+    "#......#.....#...#..#",
+    "#.##...#.....#.c.#.T#",
+    "#...#..#...b.#...3..#",
+    "#...#..#.....2..L#..#",
+    "#...#..#..#..#.B.#..#",
+    "#.L.a..#..#..#...#..#",
+    "#......1..L..#.###..#",
+    "#.P....#.A...#...#..#",
+    "#......#.....#...#..#",
+    "#####################"
+  ],
+  "hint": "Phase A: record Right ×2, Up ×2. Replay Right ×4, Up, Right ×2, Down, Right, then activate pump A. Phase B: record Right ×2, Up ×5. Replay Up ×4, Right ×6, Down, then activate pump B. Phase C: record Up ×3. Replay Right, Up ×2, Right ×3, Up, then activate the final terminal."
+}

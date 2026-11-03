@@ -1,0 +1,39 @@
+✔ walls block movement and invalid commands do not advance (2.660114ms)
+✔ room 1 is solvable and completion freezes movement (0.43084ms)
+✔ recording disabled in room 1; blank recording rejected in room 2 (0.15221ms)
+✔ recording rewinds player and replays one command per turn (0.21872ms)
+✔ room 2 solution crosses gate and Echo keeps holding plate (0.487916ms)
+✔ room 3 solution is reachable with eight-command limit (0.266503ms)
+✔ eighth recording command automatically rewinds (0.183057ms)
+✔ blocked Echo commands consume a replay step (0.306422ms)
+✔ reset clears recording, Echo, completion and turns (0.274094ms)
+✔ terminal cannot complete during recording or from another tile (0.290729ms)
+✔ closed gate blocks entry but occupant may leave (0.277809ms)
+✔ both actors use gate state from start of turn (0.124487ms)
+✔ level switching resets session; invalid level rejected (0.316547ms)
+✔ large map is rectangular with one start, two pumps and three linked switches (1.272299ms)
+✔ full three-stage walkthrough finishes in 27 replay turns (1.370979ms)
+✔ restoring pump A removes old Echo, latches gate and saves checkpoint (1.106119ms)
+✔ failed attempt restores checkpoint without losing first pump (3.608184ms)
+✔ whole-level restart clears both pumps and checkpoint (0.491481ms)
+✔ future gate cannot open before its upstream pump (0.193171ms)
+✔ closed gates prevent walking around the intended bottlenecks (2.402715ms)
+✔ terminal refuses completion if pumps were not restored (0.211969ms)
+✔ optional signs supply story without advancing turns (0.373995ms)
+✔ UI boots with four room buttons and eight trail slots (6.95856ms)
+✔ keyboard completes room and next button loads next terrace (6.855053ms)
+✔ UI records, replays and restores second room (7.88304ms)
+✔ UI remains playable when storage fails (1.965706ms)
+✔ asset registry includes all twenty vector images and six sounds (1.99458ms)
+✔ effects are opt in and movement plays the movement file (4.08298ms)
+✔ music toggle starts loop and returns to off state (2.483817ms)
+✔ art loading failure provides recovery guidance without breaking play (2.05385ms)
+✔ Week 4 level displays objectives and checkpoint progress (1.823762ms)
+ℹ tests 31
+ℹ suites 0
+ℹ pass 31
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 144.670437
